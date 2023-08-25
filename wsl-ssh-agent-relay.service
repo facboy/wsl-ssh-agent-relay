@@ -1,0 +1,16 @@
+[Unit]
+Description=WSL ssh-agent relay
+
+[Service]
+Environment=SERVICE_SUPPORT_SH="%h/git/wsl-ssh-agent-relay/wsl-ssh-agent-relay-support.sh"
+Environment=HOME="%h"
+
+ExecStartPre=/usr/bin/bash "$SERVICE_SUPPORT_SH" "startpre"
+
+ExecStart=/usr/bin/bash "$SERVICE_SUPPORT_SH" "start"
+ExecStartPost=/usr/bin/bash "$SERVICE_SUPPORT_SH" "startpost"
+
+ExecStopPost=/usr/bin/bash "$SERVICE_SUPPORT_SH" "stoppost"
+
+[Install]
+WantedBy=default.target
